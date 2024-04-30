@@ -1,0 +1,43 @@
+{
+    "_default": {
+        "2": {
+            "product_type": "Redmi",
+            "photo_id": "AgACAgQAAxkBAAIG4mYwcoonmAik-FHRfRGseiahM1XbAAIIrzEbILF8UNJGu-MeYLesAQADAgADeQADNAQ",
+            "user_id": 5143376517,
+            "model": "csdcsdc",
+            "storage": "dscdscsdc",
+            "battery": "csdcsdc",
+            "holat": "csdcdsc",
+            "document": "sdcsdcsdc",
+            "info": "dscsdcsd",
+            "price": "ssss",
+            "uniq_id": 1781
+        },
+        "3": {
+            "product_type": "Redmi",
+            "photo_id": "AgACAgQAAxkBAAIG_2YwcsDkCHml_Oi6xZmv_KCE21pYAAJMrjEbcec8UjF2_ZA1EzTqAQADAgADdwADNAQ",
+            "user_id": 5143376517,
+            "model": "assad",
+            "storage": "sss",
+            "battery": "sss",
+            "holat": "sss",
+            "document": "sssd",
+            "info": "ddds",
+            "price": "secse",
+            "uniq_id": 1810
+        },
+        "4": {
+            "product_type": "Redmi",
+            "photo_id": "AgACAgQAAxkBAAIHGmYwcypfqefCZa_M_pU94-oSFkj1AALnsDEbUeK0UbIIDIEtRzn0AQADAgADeAADNAQ",
+            "user_id": 5143376517,
+            "model": "dsdcsd",
+            "storage": "eew322",
+            "battery": "23e23",
+            "holat": "wedwed",
+            "document": "wedwe",
+            "info": "wedwed",
+            "price": "esdse",
+            "uniq_id": 1837
+        }
+    }
+}

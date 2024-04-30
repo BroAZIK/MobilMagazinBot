@@ -1,0 +1,25 @@
+{
+    "Index": {
+        "5143376517": {
+            "Stage": "start",
+            "Iphone": 0,
+            "Redmi": 1,
+            "Poco": 0,
+            "Samsung": 0,
+            "Huawei": 0,
+            "Honor": 0,
+            "My_phones": 2,
+            "edit_doc": 0
+        },
+        "5027127747": {
+            "Stage": "Redmi",
+            "Iphone": 0,
+            "Redmi": 0,
+            "Poco": 0,
+            "Samsung": 0,
+            "Huawei": 0,
+            "Honor": 0,
+            "My_phones": 0
+        }
+    }
+}
