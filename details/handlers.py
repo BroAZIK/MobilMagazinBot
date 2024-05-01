@@ -17,7 +17,7 @@ def start(update: Update, context):
     update.message.reply_photo(
         photo=start_photo,
         caption=start_mes.format(first),
-        parse_mode=ParseMode.MARKDOWN_V2,
+        parse_mode=ParseMode.HTML,
         reply_markup=ReplyKeyboardMarkup(start_but, resize_keyboard=True)
         )
     try: 
@@ -124,7 +124,7 @@ def text(update: Update, context):
                 upd(table="index", user_id=user_id, data={"edit_doc": 0})
                 print("yangi edit id yangilandi")
         else:
-            update.message.reply_text(text=error_stage.format(update.message.chat.first_name), parse_mode=ParseMode.MARKDOWN_V2, reply_markup=ReplyKeyboardMarkup(ortga, resize_keyboard=True))
+            update.message.reply_text(text=error_stage.format(update.message.chat.first_name), parse_mode=ParseMode.HTML, reply_markup=ReplyKeyboardMarkup(ortga, resize_keyboard=True))
     if stage == "get_model":
         upd(table="phone", user_id=user_id, data={"model": xabar})
         upd(table="index", user_id=user_id, data={"Stage": "get_storage"})
