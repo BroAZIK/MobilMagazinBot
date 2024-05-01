@@ -1,10 +1,10 @@
 start_mes = '''
-Salom* {}*👋
+Salom<b> {}</b>👋
 
 •Botimizga xush kelibsiz😊
 •Bu botda Telefon sotish va sotib olishingiz uchun qulayliklar yaratilgan✨
 
-*__Pastdagi bo'limlardan birini tanlashingiz mumkin👇🏻__*
+<i>Pastdagi bo'limlardan birini tanlashingiz mumkin👇🏻</i>
 '''
 
 add_phone_mes = '''
@@ -111,7 +111,7 @@ E'lon: {}/{}👆🏻
 '''
 
 error_stage = '''
-*Xato harakat: __{}__ ⚠️*
+<b>Xato harakat: __{}__ ⚠️</b>
 '''
 
 not_enough_phone = '''
