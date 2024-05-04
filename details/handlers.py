@@ -83,6 +83,7 @@ def text(update: Update, context):
             phones = get(table="phone", product_type=xabar)
             if index >= len(phones):
                 upd(table="index", user_id=user_id, data={xabar: 0})
+            index = get(table="index", user_id=user_id)[xabar]
             try:
 
                 upd(table="index", user_id=user_id, data={"Stage": xabar})
