@@ -81,7 +81,10 @@ def text(update: Update, context):
             
             index = get(table="index", user_id=user_id)[xabar]
             phones = get(table="phone", product_type=xabar)
+            if index >= len(phones):
+                upd(table="index", user_id=user_id, data={xabar: 0})
             try:
+
                 upd(table="index", user_id=user_id, data={"Stage": xabar})
                 phone_info = phones[index]
                 keyboard=[[InlineKeyboardButton("⏮", callback_data="prev"),InlineKeyboardButton("Batafsil📱", url=f"tg://user?id={phone_info['user_id']}"), InlineKeyboardButton("⏭", callback_data="next")],
