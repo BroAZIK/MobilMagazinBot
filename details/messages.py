@@ -119,7 +119,7 @@ not_enough_phone = '''
 '''
 
 stats_mes = '''
-<b>@MobiblMagazinBot statistikasi📊👇🏻
+<b>@MobilMagazinBot statistikasi📊👇🏻
 
 👤 - Bot Foydalanuvchilari: {}ta
 📱 - Botdagi Telefonlar: {}ta
