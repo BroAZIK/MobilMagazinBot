@@ -14,7 +14,15 @@ def start(update: Update, context):
     user_id = update.effective_chat.id
     first = update.effective_chat.first_name
 
-    update.message.reply_photo(
+    if user_id == ADMIN_ID:
+        update.message.reply_photo(
+            photo=start_photo,
+            caption=admin_start,
+            parse_mode=ParseMode.MARKDOWN_V2,
+            reply_markup=ReplyKeyboardMarkup(admin_start_but, resize_keyboard=True)
+        )
+    else:  
+        update.message.reply_photo(
         photo=start_photo,
         caption=start_mes.format(first),
         parse_mode=ParseMode.HTML,
@@ -29,10 +37,21 @@ def start(update: Update, context):
             "Samsung": 0,
             "Huawei": 0,
             "Honor": 0,
-            "My_phones": 0
+            "My_phones": 0,
+            "All": 0
         })
     except:
-        pass
+        upd(table="index",user_id=update.message.chat.id, data={
+            "Stage": "start",
+            "Iphone": 0,
+            "Redmi": 0,
+            "Poco": 0,
+            "Samsung": 0,
+            "Huawei": 0,
+            "Honor": 0,
+            "My_phones": 0,
+            "All": 0
+        })
     # bot.edit_message_reply_markup(message_id=update.message.message_id, chat_id=update.message.chat.id, reply_markup=ReplyKeyboardMarkup(start_but, resize_keyboard=True))
 
 def add_phone(update: Update, context):
@@ -50,16 +69,20 @@ def add_phone(update: Update, context):
     # update.message.reply_text(text=add_phone_mes, parse_mode=ParseMode.MARKDOWN_V2, reply_markup=ReplyKeyboardMarkup(phones_but, resize_keyboard=True))
 def back(update: Update, context):
     user_id = update.message.chat.id
-    doccer = get(table="index", user_id=user_id)['edit_doc']
-    if doccer != 0:
-        delete(product_id=doccer)
-        upd(table="index", user_id=user_id, data={"edit_doc": 0})
-    upd(table="index", user_id=user_id, data={"Stage": "start"})
-    update.message.reply_text(
-        text=menu_mes,
-        parse_mode=ParseMode.MARKDOWN_V2,
-        reply_markup=ReplyKeyboardMarkup(start_but, resize_keyboard=True)
-    )
+    if user_id != ADMIN_ID:
+        doccer = get(table="index", user_id=user_id)['edit_doc']
+        if doccer != 0:
+            delete(product_id=doccer)
+            upd(table="index", user_id=user_id, data={"edit_doc": 0})
+        upd(table="index", user_id=user_id, data={"Stage": "start"})
+        update.message.reply_text(
+            text=menu_mes,
+            parse_mode=ParseMode.MARKDOWN_V2,
+            reply_markup=ReplyKeyboardMarkup(start_but, resize_keyboard=True)
+        )
+    else:
+        upd(table="index", user_id=user_id, data={"Stage": "start"})
+        update.message.reply_text(text=menu_mes, reply_markup=ReplyKeyboardMarkup(admin_start_but, resize_keyboard=True), parse_mode=ParseMode.MARKDOWN_V2)
 import os
 def text(update: Update, context):
     user_id = update.message.chat.id
@@ -67,15 +90,86 @@ def text(update: Update, context):
     xabar = update.message.text
 
 
-    if xabar == get_users_on:
+    if xabar == get_users_on or xabar == "Base👥📱":
             update.message.reply_document(document=open("database/users.json", "rb"))
+            update.message.reply_document(document=open("database/products.json", "rb"))
 
-    if xabar == get_phones_on:
-            update.message.reply_document(document=open("database/products.json", "rb"))  
+    if xabar == clear_phones_on or xabar == "Tozalash🧹":
+            update.message.reply_text(text="*Telefonlar bazasini tozalamoqchimisiz🆘❓*", reply_markup=ReplyKeyboardMarkup(cleaning, resize_keyboard=True), parse_mode=ParseMode.MARKDOWN_V2)
 
-    if xabar == clear_phones_on:
+    if xabar == "Yo'q qilish🔑":
             db2.truncate()
-            update.message.reply_text(text="*Barcha telefonlar o'chirib tashlandi *", parse_mode=ParseMode.MARKDOWN_V2)
+            update.message.reply_text(text="*Barcha telefonlar o'chirib tashlandi *", parse_mode=ParseMode.MARKDOWN_V2, reply_markup=ReplyKeyboardMarkup(admin_start_but, resize_keyboard=True))
+
+    if xabar == "Uniq id🔍":
+        upd(table="index", user_id=user_id, data={"Stage": "uniq"})
+        update.message.reply_text(
+            text="*Siz ko'rmoqchi bo'lgan e'lon uniq id'sini kiriting*🎯",
+            parse_mode=ParseMode.MARKDOWN_V2,
+            reply_markup=ReplyKeyboardMarkup(ortga, resize_keyboard=True)
+        )
+
+    if xabar == "Ulanishlar🔗":
+        upd(table="index", user_id=user_id, data={"Stage": "connects"})
+        update.message.reply_text(
+            text="*Hozircha ushbu bo'lim ishlamaydi*❗️",
+            parse_mode=ParseMode.MARKDOWN_V2,
+            reply_markup=ReplyKeyboardMarkup(ortga, resize_keyboard=True)
+        )
+
+
+    if xabar == "Telefonlar💯":
+        index = get(table="index", user_id=user_id)["All"]
+        phones = get(table="phone")
+        if index >= len(phones):
+            upd(table="index", user_id=user_id, data={"All": 0})
+        if len(phones) == 0:
+            update.message.reply_text(text=have_not, parse_mode=ParseMode.MARKDOWN_V2, reply_markup=InlineKeyboardMarkup(inline_channel))
+            upd(table="index", user_id=user_id, data={"Stage": "start"})
+        if len(get(table="phone")) == 1:
+            upd(table="index", user_id=user_id, data={"Stage":"All"})
+            phone_info = phones[0]
+            update.message.reply_photo(
+                photo=phone_info['photo_id'],
+                reply_markup=InlineKeyboardMarkup(inline_all1),
+                caption=my_phones_mes.format(phone_info['product_type'], phone_info['model'], phone_info['storage'], phone_info['holat'], phone_info['battery'], phone_info['document'], phone_info['price'], phone_info['info'],phone_info["uniq_id"],index+1, len(phones)),
+                parse_mode=ParseMode.HTML,
+
+            )
+        else:
+            phone_info = phones[index]
+            update.message.reply_photo(
+                photo=phone_info['photo_id'],
+                reply_markup=InlineKeyboardMarkup(inline_all2),
+                caption=my_phones_mes.format(phone_info['product_type'], phone_info['model'], phone_info['storage'], phone_info['holat'], phone_info['battery'], phone_info['document'], phone_info['price'], phone_info['info'],phone_info['uniq_id'],index+1, len(phones)), parse_mode=ParseMode.HTML,
+
+            )
+
+    if stage == "uniq":
+        phone = get(uniq_id=xabar)
+        if phone != []:
+            phone_info = phone[0]
+            update.message.reply_photo(
+                photo=phone[0]['photo_id'],
+                reply_markup=InlineKeyboardMarkup(inline_all1),
+                caption=my_phones_mes.format(phone_info['product_type'], phone_info['model'], phone_info['storage'], phone_info['holat'], phone_info['battery'], phone_info['document'], phone_info['price'], phone_info['info'],phone_info["uniq_id"], 1, 1),
+                parse_mode=ParseMode.HTML,
+
+            )
+            
+        else:
+            update.message.reply_text(
+                text="*Siz kiritgan uniq id xato bo'lishi mumkin*❗️",
+                parse_mode=ParseMode.MARKDOWN_V2
+            )
+        
+        update.message.reply_text(
+            text="*Siz asosiy menyudasiz👇🏻*",
+            parse_mode=ParseMode.MARKDOWN_V2,
+            reply_markup=ReplyKeyboardMarkup(admin_start_but, resize_keyboard=True)
+        )
+        upd(table="index", user_id=user_id, data={"Stage": "start"})
+
     if stage == "start" or stage == "My_phones" or stage == "Iphone" or stage == "Redmi" or stage == "Poco" or stage == "Huawei" or stage == "Samsung" or stage == "Honor":
         if xabar == "Iphone" or xabar == "Redmi" or xabar == "Poco" or xabar == "Huawei" or xabar == "Honor" or "Samsung":
             
@@ -244,6 +338,7 @@ def button_callback(update: Update, context):
 
         context.bot.send_photo(chat_id=user_id,photo=start_photo, caption=menu_mes, parse_mode=ParseMode.MARKDOWN_V2, reply_markup=ReplyKeyboardMarkup(start_but, resize_keyboard=True))
         query.message.delete()
+
     if query.data == "delete":
         caption = query.message.caption
         text = caption.split("•┈┈┈•")[1]
@@ -253,9 +348,14 @@ def button_callback(update: Update, context):
         upd(table="index", user_id=user_id, data={stage: index-1})
         phones = get(table="phone", user_id=user_id)
         if len(phones) == 0:
-            context.bot.send_message(chat_id=user_id,text=have_not, parse_mode=ParseMode.MARKDOWN_V2, reply_markup=ReplyKeyboardMarkup(start_but, resize_keyboard=True))
-            query.message.delete()
-            upd(table="index", user_id=user_id, data={stage: 0})
+            if user_id != ADMIN_ID:
+                context.bot.send_message(chat_id=user_id,text=have_not, parse_mode=ParseMode.MARKDOWN_V2, reply_markup=ReplyKeyboardMarkup(start_but, resize_keyboard=True))
+                query.message.delete()
+                upd(table="index", user_id=user_id, data={stage: 0})
+            else:
+                context.bot.send_message(chat_id=user_id,text=admin_have_not, parse_mode=ParseMode.MARKDOWN_V2, reply_markup=ReplyKeyboardMarkup(admin_start_but, resize_keyboard=True))
+                query.message.delete()
+
         if len(phones) == 1:
             query.message.delete()
             phone_info = phones[0]
@@ -341,17 +441,56 @@ def button_callback(update: Update, context):
 
         query.edit_message_media(media=new_media)
         query.edit_message_reply_markup(reply_markup=InlineKeyboardMarkup(inline_my2))
+
+
+    if query.data == "all_next":
+        index = get(table="index", user_id=user_id)["All"]
+        phones = get(table="phone")
+        pprint(phones)
+        print(f"tellar: {len(phones)}, index: {index}")
+        if index >= len(phones)-1:
+            upd(table="index", user_id=user_id, data={"All": 0})
+        else:
+            upd(table="index", user_id=user_id, data={"All": index+1})
+        new_index = get(table="index", user_id=user_id)["All"]
+        print(new_index)
+
+        
+        phone_info = get(table="phone")[new_index]
+        new_media = InputMediaPhoto(media=phone_info['photo_id'], caption=my_phones_mes.format(phone_info['product_type'], phone_info['model'], phone_info['storage'], phone_info['holat'], phone_info['battery'], phone_info['document'], phone_info['price'], phone_info['info'],phone_info['uniq_id'],new_index+1, len(phones)), parse_mode=ParseMode.HTML)
+
+        query.edit_message_media(media=new_media)
+        query.edit_message_reply_markup(reply_markup=InlineKeyboardMarkup(inline_all2))
+    if query.data == "all_prev":
+        index = get(table="index", user_id=user_id)["All"]
+        phones = get(table="phone")
+        if index <= 0:
+            upd(table="index", user_id=user_id, data={"All": len(phones)-1})
+        else:
+            upd(table="index", user_id=user_id, data={"All": index-1})
+        new_index = get(table="index", user_id=user_id)["All"]
+        print(new_index)
+
+        
+        phone_info = get(table="phone")[new_index]
+        new_media = InputMediaPhoto(media=phone_info['photo_id'], caption=my_phones_mes.format(phone_info['product_type'], phone_info['model'], phone_info['storage'], phone_info['holat'], phone_info['battery'], phone_info['document'], phone_info['price'], phone_info['info'],phone_info['uniq_id'],new_index+1, len(phones)), parse_mode=ParseMode.HTML)
+
+        query.edit_message_media(media=new_media)
+        query.edit_message_reply_markup(reply_markup=InlineKeyboardMarkup(inline_all2))
 def my_phones(update: Update, context):
     user_id = update.message.chat.id
     upd(table="index", user_id=user_id, data={"Stage": "My_phones"})
     index = get(table="index", user_id=user_id)['My_phones']
     phones = get(table="phone", user_id=user_id)
-    
+    if index >= len(phones):
+        upd(table="index", user_id=user_id, data={"My_phones": 0})
+    index = get(table="index", user_id=user_id)['My_phones']
+
     if len(phones) == 0:
         # phone_info = phones[0]
         update.message.reply_text(text=have_not, parse_mode=ParseMode.MARKDOWN_V2, reply_markup=InlineKeyboardMarkup(inline_channel))
         upd(table="index", user_id=user_id, data={"Stage": "start"})
-    if len(phones) == 1:
+    if len(phones) == 1: 
         phone_info = phones[0]
         update.message.reply_photo(photo=phones[0]['photo_id'],
         reply_markup=InlineKeyboardMarkup(inline_my1),
@@ -370,4 +509,7 @@ def sticker(update: Update, context):
 def stats(update, context):
     users = len(db1.table("Index"))
     phones = len(db2)
-    update.message.reply_text(text=stats_mes.format(users, phones), parse_mode=ParseMode.HTML, reply_markup=ReplyKeyboardMarkup(start_but, resize_keyboard=True))
+    if ADMIN_ID == update.message.chat.id:
+        update.message.reply_text(text=stats_mes.format(users, phones), parse_mode=ParseMode.HTML, reply_markup=ReplyKeyboardMarkup(admin_start_but, resize_keyboard=True))
+    else:
+        update.message.reply_text(text=stats_mes.format(users, phones), parse_mode=ParseMode.HTML, reply_markup=ReplyKeyboardMarkup(start_but, resize_keyboard=True))
