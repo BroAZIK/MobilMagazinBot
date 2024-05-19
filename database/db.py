@@ -12,22 +12,29 @@ stage     = db1.table('Stage')
 index     = db1.table('Index')
 products  = db2.table('Products') 
 
-def get(table, user_id=None, product_type=None):
+def get(table=None, user_id=None, product_type=None, uniq_id=None):
 
     # if table == "stage":
     #     return stage.get(doc_id=user_id)
+    if uniq_id != None:
+        print(uniq_id)
+        uniq_id = int(uniq_id)
+        return db2.search(Query().uniq_id == uniq_id)
     if table == "users":
         if user_id == None:
             return users.all()
         else:
-            return users.get(doc_id=user_id)
+            return users.get(doc_id=user_id) 
     elif table == "index":
         return index.get(doc_id=user_id)
     elif table == "phone":
         tip = Query()
         if user_id != None:
             return db2.search(tip.user_id == user_id)
-        else:
+        elif user_id==None and product_type == None:
+            pprint(db2.all())
+            return db2.all()
+        elif product_type != None:
             return db2.search(tip.product_type == product_type)
 
     
