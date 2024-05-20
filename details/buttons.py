@@ -7,6 +7,12 @@ start_but = [
     ["Bot haqida📊"]
 ]
 
+admin_start_but = [
+    ["Ulanishlar🔗","Base👥📱"],
+    ["Telefonlar💯","Uniq id🔍","Tozalash🧹"],
+    ["Bot haqida📊"]
+]
+
 phones_but = [
     ["Iphone","Redmi","Poco"],
     ["Huawei", "Samsung", "Honor"],
@@ -16,6 +22,10 @@ phones_but = [
 
 ortga = [
     ["Ortga🔙"]
+]
+
+cleaning = [
+    ["Yo'q qilish🔑","Ortga🔙"]
 ]
 
 inline_channel = [
@@ -42,5 +52,16 @@ inline_my1 = [
 
 inline_my2 = [
     [InlineKeyboardButton("⏮", callback_data="my_prev"), InlineKeyboardButton("O'chirish🗑", callback_data="delete"), InlineKeyboardButton("⏭", callback_data="my_next")],
+    [InlineKeyboardButton("MobilMagazin | 🇺🇿", url="https://t.me/Mobil_Magazin")]
+]
+
+
+inline_all1 = [
+    [InlineKeyboardButton("O'chirish🗑", callback_data="delete")],
+    [InlineKeyboardButton("MobilMagazin | 🇺🇿", url="https://t.me/Mobil_Magazin")]
+]
+
+inline_all2 = [
+    [InlineKeyboardButton("⏮", callback_data="all_prev"), InlineKeyboardButton("O'chirish🗑", callback_data="delete"), InlineKeyboardButton("⏭", callback_data="all_next")],
     [InlineKeyboardButton("MobilMagazin | 🇺🇿", url="https://t.me/Mobil_Magazin")]
 ]
