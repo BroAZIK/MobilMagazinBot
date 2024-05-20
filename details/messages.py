@@ -94,6 +94,10 @@ have_not = '''
 *Sizning telefonlaringiz mavjud emas❌*
 '''
 
+admin_have_not = '''
+*Boshqa telefonlar mavjud emas❌*
+'''
+
 my_phones_mes = '''
 <b>{}: {}</b>
 
@@ -128,4 +132,10 @@ stats_mes = '''
 ⚙️ - Bot ishga tushgan sana: 4/30/2024
 👨🏻‍💻 - Bot admini: @Aziz_Khujamov
 </b>
+'''
+
+admin_start = '''
+*Salom Siz Adminsiz🎯*
+
+_Shu sababli sizda tugmalar va xabarlar qismi farq qiladi_
 '''
