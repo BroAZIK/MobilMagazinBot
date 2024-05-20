@@ -16,7 +16,7 @@ admin_start_but = [
 phones_but = [
     ["Iphone","Redmi","Poco"],
     ["Huawei", "Samsung", "Honor"],
-    ["Ortga🔙"]
+    ["Bot haqida📊"]
 
 ]
 
