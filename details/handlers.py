@@ -509,6 +509,7 @@ def sticker(update: Update, context):
 def stats(update, context):
     users = len(db1.table("Index"))
     phones = len(db2)
+    upd(table="index",user_id=update.message.chat.id, data={"Stage": "start"})
     if ADMIN_ID == update.message.chat.id:
         update.message.reply_text(text=stats_mes.format(users, phones), parse_mode=ParseMode.HTML, reply_markup=ReplyKeyboardMarkup(admin_start_but, resize_keyboard=True))
     else:
