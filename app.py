@@ -11,7 +11,7 @@ from telegram.ext import (
 from settings import *
 from details.handlers import *
 
-bot = Bot(token=TOKEN, use_context=True)
+bot = Bot(token=TOKEN)
 dispatcher = Dispatcher(bot, None, workers=0)
 app = Flask(__name__)
 
