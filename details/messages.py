@@ -78,7 +78,7 @@ post_channel_mes = '''
 
 <i>{}</i>❕
 
-•┈┈┈•  •┈┈┈•
+•┈┈┈• {} •┈┈┈•
 
 <b>Eng qulay va tekin:</b> @MobilMagazinBot ⚡️
 '''
