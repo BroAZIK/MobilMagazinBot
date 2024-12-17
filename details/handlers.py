@@ -311,13 +311,13 @@ def button_callback(update: Update, context):
             print("BITTA EKAN")
             phone_info = phone[0]
             keyboard = [[InlineKeyboardButton("Telefon egasi | 👤", url=f"tg://user?id={user_id}")]]
-            context.bot.send_photo(chat_id=CHANNEL, photo=phone[0]['photo_id'],parse_mode=ParseMode.HTML,caption=post_channel_mes.format(phone_info['product_type'], phone_info['model'], phone_info['storage'], phone_info['holat'], phone_info['battery'], phone_info['document'], phone_info['price'], phone_info['info']),
+            context.bot.send_photo(chat_id=CHANNEL, photo=phone[0]['photo_id'],parse_mode=ParseMode.HTML,caption=post_channel_mes.format(phone_info['product_type'], phone_info['model'], phone_info['storage'], phone_info['holat'], phone_info['battery'], phone_info['document'], phone_info['price'], phone_info['info'], phone_info['uniq_id']),
                            reply_markup=InlineKeyboardMarkup(keyboard))
         else:
             phone_info = phone[-1]
             print("KO'P EKAN")
             keyboard = [[InlineKeyboardButton("Telefon egasi | 👤", url=f"tg://user?id={user_id}")]]
-            context.bot.send_photo(chat_id=CHANNEL,parse_mode=ParseMode.HTML, photo=phone_info['photo_id'], caption=post_channel_mes.format(phone_info['product_type'], phone_info['model'], phone_info['storage'], phone_info['holat'], phone_info['battery'], phone_info['document'], phone_info['price'], phone_info['info']),
+            context.bot.send_photo(chat_id=CHANNEL,parse_mode=ParseMode.HTML, photo=phone_info['photo_id'], caption=post_channel_mes.format(phone_info['product_type'], phone_info['model'], phone_info['storage'], phone_info['holat'], phone_info['battery'], phone_info['document'], phone_info['price'], phone_info['info'], phone_info['uniq_id']),
                            reply_markup=InlineKeyboardMarkup(keyboard))
         query.delete_message()
         upd(table="index", user_id=user_id, data={"Stage": "start"})
