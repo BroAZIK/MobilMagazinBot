@@ -99,7 +99,10 @@ def text(update: Update, context):
 
     if xabar == "Yo'q qilish🔑":
             db2.truncate()
-            update.message.reply_text(text="*Barcha telefonlar o'chirib tashlandi *", parse_mode=ParseMode.MARKDOWN_V2, reply_markup=ReplyKeyboardMarkup(admin_start_but, resize_keyboard=True))
+            if user_id == ADMIN_ID:
+                update.message.reply_text(text="*Barcha telefonlar o'chirib tashlandi *", parse_mode=ParseMode.MARKDOWN_V2, reply_markup=ReplyKeyboardMarkup(admin_start_but, resize_keyboard=True))
+            else:
+                update.message.reply_text(text=menu_mes, parse_mode=ParseMode.MARKDOWN_V2, reply_markup=ReplyKeyboardMarkup(start_but, resize_keyboard=True))
 
     if xabar == "Uniq id🔍":
         upd(table="index", user_id=user_id, data={"Stage": "uniq"})
