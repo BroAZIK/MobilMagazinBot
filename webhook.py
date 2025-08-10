@@ -1,5 +1,5 @@
 from telegram import Bot
-TOKEN = "6752443146:AAGFpgwjv6P8MZ8NYtNihcQkCo7qxdOdvB0"
+TOKEN = "6752443146:AAGspa3xdNRxnJ0wIT4EAkOt3mozgzWQi7U"
 
 bot = Bot(token=TOKEN)
 
